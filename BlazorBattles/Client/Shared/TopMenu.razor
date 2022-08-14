@@ -1,0 +1,21 @@
+﻿@inject IBananaService BananaService
+@implements IDisposable
+
+<div class="top-menu">
+    <img src="icons/banana.png" />
+    <span>
+        @BananaService.Bananas
+        <AddBananas/>
+    </span>
+</div>
+@code {
+    protected override void OnInitialized()
+    {
+        BananaService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        BananaService.OnChange -= StateHasChanged;
+    }
+}
