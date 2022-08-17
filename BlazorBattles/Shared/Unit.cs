@@ -1,6 +1,6 @@
-﻿namespace BlazorBattles.Client.Shared
+﻿namespace BlazorBattles.Shared
 {
-    public class Units
+    public class Unit
     {
 
         public int ID { get; set; }
