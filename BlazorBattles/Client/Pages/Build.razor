@@ -22,19 +22,21 @@
 @code {
 
     int selectedUnitId = 1;
-    bool needMoreBananas = false;
     public void BuildUnit()
     {
         var selectedUnit = UnitService.Units.FirstOrDefault(unit => unit.ID == selectedUnitId);
 
-        if(BananaService.Bananas < selectedUnit.BananaCost)
+        if (selectedUnit != null)
         {
-            needMoreBananas = true;
-            ToastService.ShowError("Not enough bananas", ":(");
-            return;
+
+            if (BananaService.Bananas < selectedUnit.BananaCost)
+            {
+                ToastService.ShowError("Not enough bananas", ":(");
+                return;
+            }
+            BananaService.EatBananas(selectedUnit.BananaCost);
+            UnitService.AddUnit(selectedUnitId);
         }
-        BananaService.EatBananas(selectedUnit.BananaCost);
-        UnitService.AddUnit(selectedUnitId);
     }
 
 }
