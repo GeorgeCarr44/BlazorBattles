@@ -1,0 +1,35 @@
+﻿@page "/Postcode"
+
+@using System.Text.RegularExpressions
+
+<h3>PostcodeValidator</h3>
+
+<div>
+    <input @bind="input"/>
+    <h2>@output</h2>
+    <button @onclick="Process">Format Postcode</button>
+</div>
+
+@code {
+    public string? input { get; set; }
+    public string? output { get; set; }
+
+    private void Process()
+    {
+        if (input != null)
+        {
+            string t = input.Replace(" ", string.Empty).ToUpper();
+            //Add Space but check for index out of bound
+            if(t.Length  >= 3)
+                t.Insert(t.Length - 3, " ");
+            string pattern = "^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$";
+            Regex regex = new Regex(pattern);
+            var match = regex.Match(t);
+
+            if (match.Success)
+                output = t;
+            else
+                output = "Invalid";
+        }
+    }
+}
